@@ -10,42 +10,33 @@ public class ContaCorrente extends Conta{
 	}
 	
 	public String toString() {
-		return "Cheque especial: R$ " + this.chequeEspecial;
+		return super.toString() + " ContaCorrente{" +
+				"chequeEspecial="
+				+chequeEspecial + '}';
+
 	}
 	
 	public double getSaldo() {
-		return this.saldo;
+		return this.saldo + this.chequeEspecial;
 	}
 	
-	public double sacar(double valor) {
-		System.out.println("Valor do saque: R$ " + valor);
-		if(valor <= (getSaldo() + chequeEspecial)) {
-			setSaldo(getSaldo() - valor);
-			System.out.println("Saldo atual: " + getSaldo());
-			
-			if(getSaldo() < 0) {
-				System.out.println("Valor restante do cheque especial: R$ " + getChequeEspecial());
-			}
-			return valor;		
-		}else {
-			System.out.println("Você nao possui saldo disponivel para o saue do cheque especial. Valor atual: R$ " + chequeEspecial);
+	@Override
+	public boolean sacar(double quantia) {
+		double disponivel = this.chequeEspecial + this.saldo;
+		if (quantia > disponivel){
+			System.out.println("Voce não tem limite disponivel");
+			return false;
 		}
-		return 0.0;
+		else{
+			this.saldo-=quantia;
+			return true;
+		}
 	}
+
 	@Override
 	public double depositar(double valor) {
-		System.out.println("Valor do deposito: R$ " + valor);
-		setSaldo(getSaldo() + valor);
-		System.out.println("Saldo atual R$ " + getSaldo());
-		return valor;
+		return 0;
 	}
-	
-	private double getChequeEspecial() {
-		if(getSaldo() < 0) {
-			return chequeEspecial - Math.abs(getSaldo());
-		} else {
-			return chequeEspecial;
-		}
+
+
 	}
-	
-}

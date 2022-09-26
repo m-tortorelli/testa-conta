@@ -33,7 +33,7 @@ public abstract class Conta {
 		this.banco = banco;
 	}
 	public abstract double getSaldo();	
-	public abstract double sacar(double valor);
+	public abstract boolean sacar(double valor);
 	public abstract double depositar(double valor);
 	
 	
